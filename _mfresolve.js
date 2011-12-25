@@ -10,15 +10,23 @@ function run(mfURL) {
         } else {
             var url = page.evaluate(function () {
                 var list = document.getElementsByTagName('a');
+                // They have several download_links on their page, but the user sees (and clicks)
+                // only the one with the largest z-index. The other download_link are fake! So we
+                // need to find the one with the largest z-index
+                var largestZIndex = 0;
+                var result = "";
                 for (i = 0; i < list.length; i++) {
                     var x = list[i];
-                    if (x.parentNode.style.display == 'block') {
-                        return x.href;
+                    if(  x.parentNode.className == 'download_link'
+                      && x.parentNode.style.zIndex >= largestZIndex
+                      ) {
+                       result = x.href;
+                       largestZIndex = x.parentNode.style.zIndex;
                     }
                 }
-                return null;
+                return result;
             });
-            if (url != null) {
+            if (url != "") {
                 console.log(url);
                 phantom.exit();
             } else {
