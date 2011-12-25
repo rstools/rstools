@@ -9,6 +9,15 @@ PAGEURL="$1"
 BASE_DIR=`dirname "$0"`
 
 case "$PAGEURL" in
+*megaupload*)
+  FILEURL=$("$BASE_DIR"/_muresolve.js "$1")
+  if [ "$?" -ne "0" ]; then
+    echo "error: $PAGEURL"
+    exit 1
+  fi
+  wget -c "$FILEURL"
+  ;;
+
 *rapidshare*)
   FILEURL=$("$BASE_DIR"/_rsresolve.js "$1")
   if [ "$?" -ne "0" ]; then
