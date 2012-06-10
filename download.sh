@@ -37,6 +37,10 @@ case "$PAGEURL" in
   wget -c "$FILEURL"
   ;;
 
+*uploading*)
+  "$BASE_DIR"/dluploading "$PAGEURL"
+  ;;
+
 *)
   echo "unsupported hoster: $PAGEURL"
   exit 1
