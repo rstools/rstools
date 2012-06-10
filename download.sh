@@ -25,7 +25,7 @@ case "$PAGEURL" in
     exit 1
   fi
   FILENAME=$("$BASE_DIR"/_extract_filename.py "$FILEURL")
-  wget -c -O "$FILENAME" "$FILEURL"
+  wget --timeout=0 -c -O "$FILENAME" "$FILEURL"
   ;;
 
 *mediafire*)
